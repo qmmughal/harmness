@@ -1,0 +1,74 @@
+{
+  "harms": [
+    {
+      "id": "secret-exposure",
+      "title": "Secret or credential exposure",
+      "severity": "critical",
+      "category": "data",
+      "description": "The solution contains a credential, token, or private key.",
+      "blocks_solution": true,
+      "rule": {
+        "match": "(?i)AKIA[0-9A-Z]{16}|-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----|ghp_[A-Za-z0-9]{20,}|sk_live_[A-Za-z0-9]{10,}|(?:api[_-]?key|secret|password|token)\\s*[:=]\\s*['\"][^'\"]{8,}['\"]",
+        "ignore_line": "(?i)changeme|your[-_]?api[-_]?key|placeholder|redacted|<secret>|\\*{3,}"
+      }
+    },
+    {
+      "id": "destructive-without-confirm",
+      "title": "Destructive action without confirmation",
+      "severity": "high",
+      "category": "safety",
+      "description": "The solution deletes or destroys data without a nearby confirmation or dry-run.",
+      "blocks_solution": true,
+      "rule": {
+        "match": "(?i)shutil\\.rmtree|os\\.remove\\s*\\(|\\brm\\s+-rf\\b|DROP\\s+TABLE|DELETE\\s+FROM",
+        "suppress_if": "(?i)user_confirmed|\\bconfirm\\b|dry[_-]run"
+      }
+    },
+    {
+      "id": "missing-authorization",
+      "title": "Mutating route without authorization",
+      "severity": "high",
+      "category": "access",
+      "description": "The solution exposes a mutating route without a nearby authorization check.",
+      "blocks_solution": true,
+      "rule": {
+        "match": "(?i)@(?:app|router)\\.(?:post|put|delete|patch)\\b|methods\\s*=\\s*\\[[^\\]]*['\"](?:POST|PUT|PATCH|DELETE)['\"]",
+        "suppress_if": "(?i)require_auth|login_required|authorize\\(|current_user|get_current_user"
+      }
+    },
+    {
+      "id": "pii-in-logs",
+      "title": "Personal data written to logs",
+      "severity": "high",
+      "category": "privacy",
+      "description": "The solution writes an email address or other personal data to a log or print statement.",
+      "blocks_solution": true,
+      "rule": {
+        "match": "(?i)(?:logger|logging|\\blog\\b|\\bprint\\b).*(?:[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}|\\b(?:ssn|social_security|phone_number|date_of_birth)\\b)"
+      }
+    },
+    {
+      "id": "debug-exposure",
+      "title": "Debug mode enabled",
+      "severity": "medium",
+      "category": "exposure",
+      "description": "The solution enables debug mode, which can leak internals.",
+      "blocks_solution": false,
+      "rule": {
+        "match": "(?i)\\bdebug\\s*=\\s*True\\b"
+      }
+    },
+    {
+      "id": "unbounded-fetch",
+      "title": "HTTP call without a timeout",
+      "severity": "medium",
+      "category": "reliability",
+      "description": "The solution performs an HTTP call without a nearby timeout.",
+      "blocks_solution": false,
+      "rule": {
+        "match": "(?i)\\b(?:requests|httpx)\\.(?:get|post|put|delete|patch)\\s*\\(|urllib\\.request\\.urlopen\\s*\\(",
+        "suppress_if": "(?i)timeout\\s*="
+      }
+    }
+  ]
+}
