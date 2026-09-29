@@ -1,0 +1,22 @@
+# harmness
+
+> Open-source Python CLI that measures potential harms and auto-tests a solution before it can be accepted.
+
+harmness lists a catalog of potential harms, scores a proposed solution from 100, and blocks acceptance until `harmness test` has run on the current file contents. Critical and high harms block the gate. Medium and low harms lower the score and are reported. Repository: https://github.com/qmmughal/harmness. License: MIT.
+
+## Keywords
+
+harmness, harm measurement, measure potential harms, potential harms, harm catalog, list harms, auto-test, auto test before solution, solution gate, harm score, pre-acceptance check, open source, MIT license, safety, security, risk assessment, risk score, static analysis, Python CLI, developer tools, ai safety
+
+## Commands
+
+- [harmness list](README.md): list potential harms, severity, and whether each one blocks acceptance
+- [harmness test --target FILE](README.md): measure FILE, write `.harmness/report.json`, exit 1 when blocking harms are present
+- [harmness gate --target FILE](README.md): accept FILE only after a fresh auto-test with no blocking harms; exit 2 if the test is missing or stale
+
+## Docs
+
+- [README](README.md): install, workflow, score weights, exit codes, and how to add a harm
+- [Harm catalog](src/harmness/harms.json): built-in harms and detection rules
+- [Contributing](CONTRIBUTING.md): run tests and add a catalog entry
+- [License](LICENSE): MIT, SPDX identifier MIT

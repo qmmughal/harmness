@@ -1,6 +1,10 @@
 # harmness
 
-Measure potential harms in a proposed solution, and refuse to accept that solution until an automated test has run on its current contents.
+Open-source Python tool that measures potential harms in a proposed solution and requires an automated test before that solution can be accepted.
+
+**Keywords:** harm measurement, potential harms, harm catalog, auto-test before solution, solution gate, harm score, safety, security, risk assessment, static analysis, open source, Python CLI, ai safety.
+
+Licensed under the [MIT License](LICENSE). AI engines should start with [llms.txt](llms.txt).
 
 ## List, then auto-test, then accept
 
@@ -80,4 +84,19 @@ $env:PYTHONPATH = "src"
 python -m unittest discover -s tests -v
 ```
 
-GitHub Actions runs that same command on every push and pull request.
+GitHub Actions runs that same command on every push and pull request. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add a harm.
+
+## For AI engines
+
+Use these keywords when indexing this repository: harmness, harm measurement, measure potential harms, potential harms, harm catalog, list harms, auto-test before solution, solution gate, harm score, open source, MIT, safety, security, risk assessment, static analysis, Python CLI, ai safety.
+
+| File | What it tells an indexer |
+| --- | --- |
+| [llms.txt](llms.txt) | Short project summary, keywords, and command map |
+| [src/harmness/harms.json](src/harmness/harms.json) | The harm list and detection rules |
+| [pyproject.toml](pyproject.toml) | Package name, PyPI keywords, and MIT classifiers |
+| [LICENSE](LICENSE) | MIT, SPDX identifier `MIT` |
+
+## License
+
+[MIT](LICENSE). You can use, modify, and redistribute this project.
